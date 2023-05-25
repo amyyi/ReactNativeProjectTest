@@ -116,7 +116,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Build failure logs
-        path: ${{ runner.temp }}/build_logs
+        path: tmp/${{JOB_ID}}/build.log
 
     - name: Set App Center script
       id: app-center-var
