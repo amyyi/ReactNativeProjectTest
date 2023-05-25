@@ -1859,28 +1859,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heimdallr-native-esim@git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/esim":
-  version: 0.1.0
-  resolution: "@heimdallr-native-esim@git+ssh://git@github.com:RDTel25/heimdallr-native.git#commit=2d5644111d1845fe71dd0e69a884a193c0176261"
-  dependencies:
-    react-native-device-info: 10.3.0
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 5ade4cd2c4e4ed4f9a9db90d7e4d6a18ddb7a1609387b17c104195fcf7cca844f9fedbfddec8c9e06eb6b8446826d6d01ae59a4ad09f7c85f82edb6494c028c9
-  languageName: node
-  linkType: hard
-
-"@heimdallr-native-vpn@git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/vpn":
-  version: 0.1.0
-  resolution: "@heimdallr-native-vpn@git+ssh://git@github.com:RDTel25/heimdallr-native.git#commit=a887e40ed79d19fbe3df44304c7c11b86c035d45"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 0476cdcdd2f07cd07ef9252314d6458bd1a4dd2a30d6b8c8021245043f3b4debac583284f1270765c621cbad6cf224edccc19a4c41410db71b84903227e49a98
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.8":
   version: 0.11.8
   resolution: "@humanwhocodes/config-array@npm:0.11.8"
@@ -7118,13 +7096,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:1.1.0":
-  version: 1.1.0
-  resolution: "events@npm:1.1.0"
-  checksum: 77d57a975c3d41cf89047b56c94a2f843c2ccdf47b6ddb12e737b2c6b7d1b7cf391c0aaeecde3b4879de2f4a516a10316a3d509e8f4322d235b0e5cb3e90bd65
-  languageName: node
-  linkType: hard
-
 "events@npm:3.3.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
@@ -8290,8 +8261,6 @@ __metadata:
     "@babel/preset-env": 7.21.4
     "@babel/runtime": 7.21.0
     "@google-cloud/local-auth": 2.1.0
-    "@heimdallr-native-esim": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/esim"
-    "@heimdallr-native-vpn": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/vpn"
     "@invertase/react-native-apple-authentication": 2.2.2
     "@nrwl/jest": 15.9.2
     "@nrwl/linter": 15.9.2
@@ -8375,7 +8344,6 @@ __metadata:
     react-native-modal-datetime-picker: 15.0.0
     react-native-permissions: 3.8.0
     react-native-picker: 4.3.7
-    react-native-pjsip: "git+ssh://git@github.com:RDTel25/react-native-pjsip.git"
     react-native-push-notification: 7.4.0
     react-native-qrcode-svg: 6.2.0
     react-native-reanimated: 2.16.0
@@ -13007,15 +12975,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-device-info@npm:10.3.0":
-  version: 10.3.0
-  resolution: "react-native-device-info@npm:10.3.0"
-  peerDependencies:
-    react-native: "*"
-  checksum: 5f2b2f81a33c2dc66a44d404370908b8d7bd560c220920ce68b819bb471d293b657b1eb544b960f4a50006f43251fa6c02607f2aae32790c583b7bf2e4ebae22
-  languageName: node
-  linkType: hard
-
 "react-native-device-info@npm:10.6.0":
   version: 10.6.0
   resolution: "react-native-device-info@npm:10.6.0"
@@ -13184,17 +13143,6 @@ __metadata:
   version: 4.3.7
   resolution: "react-native-picker@npm:4.3.7"
   checksum: 581c7460595648766ac0d75cf90cec456abb08af95a5a89b6807b81558ccfb2e91c1de006bdd338c40a36ccd6986f5f53f03a04d2956f643645fa28baa9a7f67
-  languageName: node
-  linkType: hard
-
-"react-native-pjsip@git+ssh://git@github.com:RDTel25/react-native-pjsip.git":
-  version: 2.8.0
-  resolution: "react-native-pjsip@git+ssh://git@github.com:RDTel25/react-native-pjsip.git#commit=b246c1834688ed60de265e7a679388ad8fb57f80"
-  dependencies:
-    events: 1.1.0
-  peerDependencies:
-    react-native: ">=0.40.0"
-  checksum: fee3e11db1c8af089fbed2665a9f20b10ede9b5e3ca7cd49e2953d21afd2232ea67a9af767e1bd82d0c375e5c79d1dab41537a8fea2687826ecc557df6820add
   languageName: node
   linkType: hard
 
