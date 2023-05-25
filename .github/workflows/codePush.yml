@@ -55,11 +55,11 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    # - name: set env
-    #   run: |
-    #     brew install rbenv ruby-build
-    #     rbenv install 2.7.6
-    #     gem install ffi
+    - name: set env
+      run: |
+        brew install rbenv ruby-build
+        rbenv install 2.7.6
+        gem install ffi
     #     corepack prepare yarn@3.5.1 --activate
       # yarn policies set-version 3.5.1
     # - name: set yarn version
