@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "reinstall": "rm -rf ./node_modules && rm -rf ./apps/telu-app/ios/Pods && rm -rf ./apps/nexim-app/ios/Pods && yarn install",
-    "postinstall": "yarn run cp:node_modules && yarn run setup-ios-permissions && yarn run pod-install && pod-install",
+    "reinstall": "rm -rf ./node_modules && rm -rf ./apps/telu-app/ios/Pods && yarn install",
+    "postinstall": "yarn run cp:node_modules && yarn run setup-ios-permissions && yarn run pod-install && husky install",
     "setup-ios-permissions": "react-native setup-ios-permissions",
     "pod-install": "nx run-many --targets=pod-install --parallel=false",
     "lint": "nx run-many --targets=lint,stylelint,type-check --projects=\\*-app",

@@ -35,7 +35,7 @@ target 'TeluApp' do
   $RNFirebaseAnalyticsWithoutAdIdSupport=true
   $RNAppsFlyerStrictMode=true
 
-  config = use_native_modules!(".")
+  config = use_native_modules!
 
   # prefer use_frameworks, but pjsip cannot build success. use this workaround.
   pod 'GoogleUtilities', :modular_headers => true
