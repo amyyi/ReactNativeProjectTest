@@ -108,8 +108,20 @@ jobs:
           echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
         fi
 
+    - name: Build with logs
+      run: |
+        mkdir ${{ runner.temp }}/build_logs
+        ./build.sh --log-path ${{ runner.temp }}/build_logs
+
     - name: Build
       run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
+
+    - name: Upload logs on fail
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: Build failure logs
+        path: ${{ runner.temp }}/build_logs
 
     - name: Set App Center script
       id: app-center-var
