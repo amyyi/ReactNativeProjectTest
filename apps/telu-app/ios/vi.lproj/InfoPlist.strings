@@ -1,0 +1,9 @@
+/*
+  InfoPlist.strings
+*/
+
+"NSCameraUsageDescription" = "Vui lòng bật quyền để sử dụng chức năng quét số sê-ri và xác minh danh tính.";
+"NSMicrophoneUsageDescription" = "Vui lòng cho phép sử dụng chức năng gọi.";
+"NSLocationWhenInUseUsageDescription" = "Cho phép TEL-U truy cập vị trí của bạn trong khi sử dụng ứng dụng.";
+"NSPhotoLibraryAddUsageDescription" = "Cho phép TEL-U lưu ảnh vào album điện thoại của bạn.";
+"NSPhotoLibraryUsageDescription" = "Cho phép TEL-U truy cập vào album điện thoại của bạn.";

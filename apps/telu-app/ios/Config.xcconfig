@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//
+//  Created by Tel25Dev on 2021/2/8.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include? "tmp.xcconfig"

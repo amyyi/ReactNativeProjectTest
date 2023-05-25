@@ -1,0 +1,158 @@
+name: Release code push deploy workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      projectName:
+        description: 'Which app do you want to code push'
+        required: true
+        type: choice
+        options:
+        - telu
+        - nexim
+      platform:
+        description: 'Which platform do you want to release'
+        required: true
+        type: choice
+        options:
+          - iOS
+          - Android
+          - iOS & android
+      environment:
+        description: 'Which environment do you want to deploy'
+        required: true
+        type: choice
+        options:
+          - Development
+          - Production
+      targetVersion:
+        description: "Target store version: (2.0.2)"
+        required: true
+        type: string
+      codePushVersion:
+        description: "Target code push version: v2.0.2-(3)"
+        required: true
+        type: string
+      description:
+        description: "description: (some note)"
+        type: string
+      forceUpdate:
+        description: "Whether to enable mandatory update?"
+        type: boolean
+      enableUpdate:
+        description: 'Enable this update?'
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.PAT_AMY }}
+
+    - name: Bundle dependencies
+      run: sudo gem install bundler
+
+    # - name: set env
+    #   run: |
+    #     brew install rbenv ruby-build
+    #     rbenv install 2.7.6
+    #     gem install ffi
+    #     corepack prepare yarn@3.5.1 --activate
+      # yarn policies set-version 3.5.1
+    # - name: set yarn version
+    #   run: yarn policies set-version 3.5.1
+    #   # yarn install --frozen-lockfile
+      # run: corepack prepare yarn@3.5.1 --activate
+
+    - name: print env
+      run: echo && yarn -v && node -v && pod --version && ruby -v
+
+    - name: Disable the keychain credential helper
+      run: git config --global credential.helper ""
+
+    - name: Enable the local store credential helper
+      run: git config --global --add credential.helper store
+
+    - name: Add credential
+      run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
+
+    - name: Tell git to use https instead of ssh whenever it encounters it
+      run: 'git config --global url."https://github.com/".insteadof git@github.com:'
+
+    - name: Set path
+      id: app-path-var
+      run: |
+        if ${{inputs.projectName == 'telu'}}; then
+          echo "appPrefix=TeluApp" >> $GITHUB_OUTPUT
+          echo "appPath=apps/telu-app" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.projectName == 'nexim'}}; then
+          echo "appPrefix=NeximApp" >> $GITHUB_OUTPUT
+          echo "appPath=apps/nexim-app" >> $GITHUB_OUTPUT
+        fi
+    - name: Set platform
+      id: app-platform-var
+      run: |
+        if ${{inputs.platform == 'iOS'}}; then
+          echo "appName=${{steps.app-path-var.outputs.appPrefix}}-iOS" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.platform == 'Android'}}; then
+          echo "appName=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.platform == 'iOS & android'}}; then
+          echo "appNameIos=${{steps.app-path-var.outputs.appPrefix}}-iOS" >> $GITHUB_OUTPUT
+          echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Build
+      run: sudo gem install cocoapods -v 1.12.1 && rm -rf node_modules && yarn install --network-concurrency 1
+
+    - name: Set App Center script
+      id: app-center-var
+      run: |
+        if ${{inputs.platform == 'iOS & android'}}; then
+        echo "deployScriptIos=$deployScriptIos $updateSetting" >> $GITHUB_OUTPUT
+        echo "deployScriptAndroid=$deployScriptAndroid $updateSetting" >> $GITHUB_OUTPUT
+        else
+        echo "deployScript=$deployScript $updateSetting" >> $GITHUB_OUTPUT
+        fi
+      env:
+        deployScriptIos: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameIos}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        deployScriptAndroid: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameAndroid}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        deployScript: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appName}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        updateSetting: ${{inputs.forceUpdate == true && ' -m' || ''}} ${{inputs.enableUpdate == false && ' -x' || ''}}
+
+    # for test
+    # - name: Print variable
+    #   run: |
+    #     echo "appPrefix ${{steps.app-path-var.outputs.appPrefix}}"
+    #     echo "appPath ${{steps.app-path-var.outputs.appPath}}"
+    #     echo "appName ${{steps.app-platform-var.outputs.appName}}"
+    #     echo "appNameIos ${{steps.app-platform-var.outputs.appNameIos}}"
+    #     echo "appNameAndroid ${{steps.app-platform-var.outputs.appNameAndroid}}"
+    #     echo "deployScriptIos ${{steps.app-center.outputs.deployScriptIos}}"
+    #     echo "deployScriptAndroid ${{steps.app-center.outputs.deployScriptAndroid}}"
+    #     echo "deployScript ${{steps.app-center.outputs.deployScript}}"
+
+    - name: Install AppCenter CLI
+      run: npm install -g appcenter-cli
+
+    - name: Deploy to Codepush
+      run: ${{steps.app-center-var.outputs.deployScript}}
+      env:
+        APPCENTER_ACCESS_TOKEN: '034772f12caa088ac926a71ffc8f05b59303c5f0'
+      # https://github.com/avocaddo/AppCenter-Github-Action
+      # uses: avocaddo/AppCenter-Github-Action@v1.0.2
+      # with:
+      #   command: ${{steps.app-center-var.outputs.deployScript}}
+      #   token: '034772f12caa088ac926a71ffc8f05b59303c5f0'
+      # uses: NishanthShankar/codepush-action@master
+      # with:
+      #   args:
+      #     # ${{steps.app-center-var.outputs.deployScriptIos}}
+      #     # ${{steps.app-center-var.outputs.deployScriptAndroid}}
+      #     ${{steps.app-center-var.outputs.deployScript}}
+      # uses: wzieba/AppCenter-Github-Action@v1

@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "paths": {
+      "@heimdallr/setup": ["libs/setup.ts"],
+      "@heimdallr/apis*": ["libs/apis/src*"],
+      "@heimdallr/business*": ["libs/business/src*"],
+      "@heimdallr/components": ["libs/components/src/index.ts"],
+      "@heimdallr/constants*": ["libs/constants/src*"],
+      "@heimdallr/hooks*": ["libs/hooks/src/index.ts"],
+      "@heimdallr/i18n*": ["libs/i18n/src/index.ts"],
+      "@heimdallr/interfaces*": ["libs/interfaces/src*"],
+      "@heimdallr/navigator": ["libs/navigator/src/index.ts"],
+      "@heimdallr/services*": ["libs/services/src*"],
+      "@heimdallr/stores*": ["libs/stores/src*"],
+      "@heimdallr/utils*": ["libs/utils/src*"],
+      "@/app-config": ["./apps/telu-app/app.config.js"],
+      "@/assets*": ["./apps/telu-app/assets*"],
+      "@/navigator*": ["./apps/telu-app/src/navigator*"],
+      "@/services*": ["./apps/telu-app/src/services*"],
+      "@/types*": ["./apps/telu-app/types*"],
+    }
+  },
+  "include": ["**/*", "**/*.json", "../../libs/**/*"],
+  "exclude": ["node_modules", "metro.config.js", "../../libs/interfaces/src/styled-components.d.ts"]
+}

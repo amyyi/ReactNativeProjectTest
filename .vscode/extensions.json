@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "SanmaoZhao.vscode-stylelint-legacy",
+    "esbenp.prettier-vscode",
+    "styled-components.vscode-styled-components",
+    "aaron-bond.better-comments",
+    "donjayamanne.githistory",
+    "nrwl.angular-console",
+    "firsttris.vscode-jest-runner"
+  ]
+}

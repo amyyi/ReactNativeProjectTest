@@ -1,0 +1,28 @@
+{
+  "name": "test",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "__tests__/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["__tests__/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "stylelint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint '__tests__/**/*.{ts,tsx,js,jsx}'"
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p __tests__/tsconfig.json --composite false"
+      }
+    }
+  },
+  "tags": []
+}

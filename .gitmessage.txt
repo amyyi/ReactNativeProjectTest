@@ -1,0 +1,51 @@
+
+# commit log 請遵造以下格式
+# 
+# <type>: <summary> {必要}
+# <body> {非必要}
+# 
+# [範例 - 常用]
+# version: nexim release v0.0.4-0, env prod, build 0000461
+# version: nexim code push v0.0.4-1, env dev
+# feat: nex-162, remove button on product list
+# fix: cac-235, unregister when app is inactive in android
+# chore: nex-172, update remote locales
+# 
+# [範例 - 完整格式]
+# fix: nex-666, phone lobby add button not work
+# 
+# [Why]
+# api key miss
+#
+# [How]
+# pass new params on callback
+#
+# <Type>
+# ------------------> 影響內容，須測試並寫入 release note
+# feat: (feature) 新增、修改功能
+# fix: (bugfix) 修復
+# perf: (performance) 性能優化
+# refactor: 功能重構
+# native: 原生變動 (iOS、android)
+# 3rd: 增加第三方
+#
+# ------------------> 不影響內容
+# version: 版本定義
+# chore: 雜事
+# docs: 文檔更新
+# tool: 工具 (bin, script, devDependencies)
+# test: 增加測試代碼 (unit test)
+# style: 格式 (white-space, formatting, missing semi colons, etc)。
+# 
+# <Summary>
+# 描述本次變動 (What)
+# 
+# <Body>
+# ...............空行
+# [Why] 
+# 為什麼這麼改
+# ...............空行
+# [How]
+# 做了什麼
+# ...............空行
+#

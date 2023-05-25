@@ -1,0 +1,9 @@
+/*
+  InfoPlist.strings
+*/
+
+"NSCameraUsageDescription" = "Setuju TEL-U mendapatkan akses untuk melakukan scan dan verifikasi identitas diri.";
+"NSMicrophoneUsageDescription" = "Setuju memberikan akses untuk melakukan panggilan.";
+"NSLocationWhenInUseUsageDescription" = "Setuju TEL-U mengakses lokasi Anda saat menggunakan app.";
+"NSPhotoLibraryAddUsageDescription" = "Setuju TEL-U menyimpan foto ke album ponsel.";
+"NSPhotoLibraryUsageDescription" = "Setuju TEL-U menggunakan foto dari album.";

@@ -1,0 +1,9 @@
+/*
+  InfoPlist.strings
+*/
+
+"NSCameraUsageDescription" = "This allows TEL-U to save photos for scanning pin number and ID verification.";
+"NSMicrophoneUsageDescription" = "This allows access to make phone calls.";
+"NSLocationWhenInUseUsageDescription" = "Allow TEL-U to access your location while using the app.";
+"NSPhotoLibraryAddUsageDescription" = "Allow TEL-U to save photos to your phone album.";
+"NSPhotoLibraryUsageDescription" = "This allows TEL-U  to use photos from your photo album.";

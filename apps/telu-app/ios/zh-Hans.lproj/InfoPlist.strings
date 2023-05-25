@@ -1,0 +1,9 @@
+/*
+  InfoPlist.strings
+*/
+
+"NSCameraUsageDescription" = "请开启权限，以便使用扫描序号和身分验证功能";
+"NSMicrophoneUsageDescription" = "请开启权限，以便使用通话功能";
+"NSLocationWhenInUseUsageDescription" = "请开启权限，以便读取使用期间访问位置";
+"NSPhotoLibraryAddUsageDescription" = "请开启权限，使照片存入您的相簿";
+"NSPhotoLibraryUsageDescription" = "请开启权限，使 TEL-U 读取您的相簿";

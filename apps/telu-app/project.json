@@ -1,0 +1,109 @@
+{
+  "name": "telu-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/telu-app/src",
+  "projectType": "application",
+  "targets": {
+    "start": {
+      "executor": "@nrwl/react-native:start",
+      "options": {
+        "port": 8081
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx start telu-app"
+      }
+    },
+    "pod-install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/telu-app/ios && pod install"
+      }
+    },
+    "run-ios": {
+      "executor": "@nrwl/react-native:run-ios",
+      "options": {}
+    },
+    "build-ios": {
+      "executor": "@nrwl/react-native:build-ios",
+      "outputs": ["{projectRoot}/ios/build/Build"],
+      "options": {}
+    },
+    "bundle-ios": {
+      "executor": "@nrwl/react-native:bundle",
+      "outputs": ["{options.bundleOutput}"],
+      "options": {
+        "entryFile": "src/index.ts",
+        "platform": "ios",
+        "bundleOutput": "dist/apps/telu-app/ios/main.jsbundle"
+      }
+    },
+    "run-android": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/telu-app && react-native run-android --appIdSuffix=debug"
+      }
+    },
+    "build-android": {
+      "executor": "@nrwl/react-native:build-android",
+      "outputs": [
+        "{projectRoot}/android/app/build/outputs/bundle",
+        "{projectRoot}/android/app/build/outputs/apk"
+      ],
+      "options": {}
+    },
+    "bundle-android": {
+      "executor": "@nrwl/react-native:bundle",
+      "outputs": ["{options.bundleOutput}"],
+      "options": {
+        "entryFile": "src/index.ts",
+        "platform": "android",
+        "bundleOutput": "dist/apps/telu-app/android/main.jsbundle"
+      }
+    },
+    "sync-deps": {
+      "executor": "@nrwl/react-native:sync-deps",
+      "options": {}
+    },
+    "ensure-symlink": {
+      "executor": "@nrwl/react-native:ensure-symlink",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/telu-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "stylelint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint 'apps/telu-app/**/*.{ts,tsx,js,jsx}'"
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/telu-app/tsconfig.json --composite false"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/telu-app/jest.config.js",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
