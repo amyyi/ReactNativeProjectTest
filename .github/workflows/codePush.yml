@@ -109,7 +109,7 @@ jobs:
         fi
 
     - name: Build
-      run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && yarn install
+      run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
 
     - name: Set App Center script
       id: app-center-var
