@@ -108,7 +108,7 @@ jobs:
         fi
 
     - name: Build
-      run: sudo gem install cocoapods -v 1.12.1 && rm -rf node_modules && yarn install --network-concurrency 1
+      run: sudo gem install cocoapods -v 1.12.1 && ln -s ./node_modules ./apps/telu-app && rm -rf node_modules && yarn install --network-concurrency 1
 
     - name: Set App Center script
       id: app-center-var
