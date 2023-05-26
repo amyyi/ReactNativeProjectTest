@@ -55,10 +55,10 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    - name: set env
-      run: |
-        corepack enable
-        corepack prepare yarn@3.5.1 --activate
+#     - name: set env
+#       run: |
+#         corepack enable
+#         corepack prepare yarn@3.5.1 --activate
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
