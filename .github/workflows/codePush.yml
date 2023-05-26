@@ -58,7 +58,7 @@ jobs:
     - name: Set env
       run: |
         corepack enable
-        corepack prepare yarn@2.0.0 --activate
+        corepack prepare yarn@3.5.0 --activate
         yarn config set nodeLinker node-modules
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
