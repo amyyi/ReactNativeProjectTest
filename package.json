@@ -32,7 +32,6 @@
   "dependencies": {
     "@adrianso/react-native-device-brightness": "1.2.7",
     "@heimdallr-native-esim": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/esim",
-    "@heimdallr-native-vpn": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/vpn",
     "@invertase/react-native-apple-authentication": "2.2.2",
     "@react-native-async-storage/async-storage": "1.18.1",
     "@react-native-clipboard/clipboard": "1.11.2",
