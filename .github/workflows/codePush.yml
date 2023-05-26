@@ -57,8 +57,10 @@ jobs:
 
     - name: set env
       run: |
-        corepack enable
-        corepack prepare yarn@2.0.0 --activate
+        yarn set version berry
+        yarn config set nodeLinker node-modules
+      # corepack enable
+      # corepack prepare yarn@2.0.0 --activate
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
@@ -115,7 +117,7 @@ jobs:
       run: |
         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
         yarn cache clean --all
-        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
+        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --immutable
 
     - name: Upload logs on fail
       if: ${{ failure() }}
