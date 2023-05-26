@@ -55,29 +55,27 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    - name: set env
+    - name: Set env
       run: |
-        yarn set version berry
+        corepack enable
+        corepack prepare yarn@2.0.0 --activate
         yarn config set nodeLinker node-modules
-      # corepack enable
-      # corepack prepare yarn@2.0.0 --activate
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
       # yarn policies set-version 3.5.1
-    # - name: set yarn version
-    #   run: yarn policies set-version 3.5.1
-    #   # yarn install --frozen-lockfile
-      # run: corepack prepare yarn@3.5.1 --activate
 
-    - name: print env
+    - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v
 
-    - name: Disable the keychain credential helper
-      run: git config --global credential.helper ""
+    - name: Set the keychain credential helper
+      run: git config --global credential.helper store
 
-    - name: Enable the local store credential helper
-      run: git config --global --add credential.helper store
+#     - name: Disable the keychain credential helper
+#       run: git config --global credential.helper ""
+
+#     - name: Enable the local store credential helper
+#       run: git config --global --add credential.helper store
 
     - name: Add credential
       run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
