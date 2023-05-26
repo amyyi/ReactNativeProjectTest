@@ -1871,16 +1871,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heimdallr-native-vpn@git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/vpn":
-  version: 0.1.0
-  resolution: "@heimdallr-native-vpn@git+ssh://git@github.com:RDTel25/heimdallr-native.git#commit=ca605f01578d5fcdd736a3b2266718e69eda8a65"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 822ee8b69b6f064c78715e44b3e1176f96d83afec4652144265b0673cd550152c4c3ac3cc5995a516eaba0dc68548860ed7e50acaa5c34bc1c37256eed91ea35
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.8":
   version: 0.11.8
   resolution: "@humanwhocodes/config-array@npm:0.11.8"
@@ -8291,7 +8281,6 @@ __metadata:
     "@babel/runtime": 7.21.0
     "@google-cloud/local-auth": 2.1.0
     "@heimdallr-native-esim": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/esim"
-    "@heimdallr-native-vpn": "git+ssh://git@github.com:RDTel25/heimdallr-native.git#feat/vpn"
     "@invertase/react-native-apple-authentication": 2.2.2
     "@nrwl/jest": 15.9.2
     "@nrwl/linter": 15.9.2
