@@ -71,17 +71,18 @@ jobs:
     - name: print env
       run: echo && yarn -v && node -v && ruby -v
 
-#     - name: Disable the keychain credential helper
-#       run: git config --global credential.helper ""
+    - name: Disable the keychain credential helper
+      run: git config --global credential.helper ""
 
-#     - name: Enable the local store credential helper
-#       run: git config --global --add credential.helper store
+    - name: Enable the local store credential helper
+      run: git config --global --add credential.helper store
 
-#     - name: Add credential
-#       run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
+    - name: Add credential
+      run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
 
-#     - name: Tell git to use https instead of ssh whenever it encounters it
-#       run: 'git config --global url."https://github.com/".insteadof git@github.com:'
+    - name: Tell git to use https instead of ssh whenever it encounters it
+      run: git config --global url."https://".insteadOf git://
+#       'git config --global url."https://github.com/".insteadof git@github.com:'
 
     - name: Set path
       id: app-path-var
