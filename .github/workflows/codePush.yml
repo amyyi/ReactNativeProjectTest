@@ -58,8 +58,9 @@ jobs:
     - name: Set env
       run: |
         corepack enable
-        corepack prepare yarn@2.0.0 --activate
+        corepack prepare yarn@3.5.0 --activate
         yarn config set nodeLinker node-modules
+        yarn dlx @yarnpkg/doctor
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
@@ -82,6 +83,12 @@ jobs:
 
     - name: Tell git to use https instead of ssh whenever it encounters it
       run: 'git config --global url."https://github.com/".insteadof git@github.com:'
+      
+    - name: Set github url and credentials
+      run: |
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf ssh://git@github
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf https://github
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf git@github
 
     - name: Set path
       id: app-path-var
