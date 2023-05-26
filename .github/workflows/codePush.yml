@@ -60,7 +60,8 @@ jobs:
         corepack enable
         corepack prepare yarn@3.5.0 --activate
         yarn config set nodeLinker node-modules
-        yarn dlx @yarnpkg/doctor
+      # yarn plugin remove @yarnpkg/plugin-version
+      # yarn dlx @yarnpkg/doctor
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
