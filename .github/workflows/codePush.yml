@@ -55,10 +55,10 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    - name: set env
-      run: |
-        corepack enable
-        corepack prepare yarn@3.5.1 --activate
+    # - name: set env
+    #   run: |
+    #     corepack enable
+    #     corepack prepare yarn@3.5.1 --activate
       # brew install rbenv ruby-build
       # rbenv install 2.7.6
       # gem install ffi
@@ -111,12 +111,12 @@ jobs:
     - name: Build
       run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
 
-    - name: Upload logs on fail
-      if: ${{ failure() }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: Build failure logs
-        path: ${{ runner.temp }}/build.log
+    # - name: Upload logs on fail
+    #   if: ${{ failure() }}
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: Build failure logs
+    #     path: ${{ runner.temp }}/build.log
 
     - name: Set App Center script
       id: app-center-var
