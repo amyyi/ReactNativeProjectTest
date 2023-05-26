@@ -112,7 +112,10 @@ jobs:
       run: git config --global -l
       
     - name: Build
-      run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
+      run: |
+        rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
+        yarn cache clean --all
+        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
 
     - name: Upload logs on fail
       if: ${{ failure() }}
