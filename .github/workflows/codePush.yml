@@ -57,6 +57,7 @@ jobs:
 
     - name: set env
       run: |
+        npm view yarn
         npm install -g yarn@3.5.1
       # corepack enable
       # corepack prepare yarn@3.5.1 --activate
