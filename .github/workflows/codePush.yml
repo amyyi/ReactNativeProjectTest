@@ -81,8 +81,7 @@ jobs:
       run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
 
     - name: Tell git to use https instead of ssh whenever it encounters it
-      run: git config --global url.https://${{ secrets.PAT_AMY }}@github.com/.insteadOf https://github.com
-      # 'git config --global url."https://github.com/".insteadof git@github.com:'
+      run: 'git config --global url."https://github.com/".insteadof git@github.com:'
 
     - name: Set path
       id: app-path-var
@@ -109,10 +108,11 @@ jobs:
           echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
         fi
 
+    - name: Print git config global
+      run: git config --global -l
+      
     - name: Build
-      run: |
-        git config --global url.https://github.com/.insteadOf git@github.com:
-        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
+      run: sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install
 
     - name: Upload logs on fail
       if: ${{ failure() }}
