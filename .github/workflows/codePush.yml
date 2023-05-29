@@ -121,7 +121,7 @@ jobs:
       
     - name: Install Xcode
       run: |
-        gem install xcode-install
+        sudo gem install xcode-install
         xcversion install 14.2
       
     - name: Build
