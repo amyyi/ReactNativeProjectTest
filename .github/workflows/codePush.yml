@@ -45,7 +45,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -118,6 +118,11 @@ jobs:
 
     - name: Print git config global
       run: git config --global -l
+      
+    - name: Install Xcode
+      run: |
+        gem install xcode-install
+        xcversion install 14.2
       
     - name: Build
       run: |
