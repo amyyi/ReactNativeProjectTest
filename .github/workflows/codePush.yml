@@ -123,7 +123,6 @@ jobs:
       run: |
         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
         yarn cache clean --all
-        xcode-select --install
         sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --inline-builds
 
     - name: Upload logs on fail
