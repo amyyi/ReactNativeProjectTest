@@ -120,7 +120,10 @@ jobs:
       run: git config --global -l
 
     - name: GitHub Action for SwiftLint
-      uses: norio-nomura/action-swiftlint@3.2.1
+      run: |
+        wget https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-2.2-RELEASE/swift-2.2-RELEASE-ubuntu14.04.tar.gz
+        tar xf swift-2.2-RELEASE-ubuntu14.04.tar.gz
+        export PATH=$HOME/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
 
     # - name: Install Xcode
     #   run: |
@@ -131,7 +134,7 @@ jobs:
 
     - name: Build
       run: |
-        echo /usr/bin/xcodebuild -version
+        /usr/bin/xcodebuild -version
         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
         yarn cache clean --all
         sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --inline-builds
