@@ -121,9 +121,10 @@ jobs:
       
     - name: Install Xcode
       run: |
-        export FASTLANE_PASSWORD = ${{secrets.FASTLANE_PASSWORD}}
         sudo gem install xcode-install
         xcversion install 14.2
+      env: 
+        FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
       
     - name: Build
       run: |
