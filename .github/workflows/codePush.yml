@@ -116,14 +116,14 @@ jobs:
           echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
         fi
 
-    - name: Print git config global
-      run: git config --global -l
+#     - name: Print git config global
+#       run: git config --global -l
 
-    - name: GitHub Action for SwiftLint
-      run: |
-        wget https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-2.2-RELEASE/swift-2.2-RELEASE-ubuntu14.04.tar.gz
-        tar xf swift-2.2-RELEASE-ubuntu14.04.tar.gz
-        export PATH=$HOME/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
+#     - name: GitHub Action for SwiftLint
+#       run: |
+#         wget https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-2.2-RELEASE/swift-2.2-RELEASE-ubuntu14.04.tar.gz
+#         tar xf swift-2.2-RELEASE-ubuntu14.04.tar.gz
+#         export PATH=$HOME/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
 
     # - name: Install Xcode
     #   run: |
@@ -133,10 +133,11 @@ jobs:
     #     FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
 
     - name: Build
-      run: |
-        rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
-        yarn cache clean --all
-        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --inline-builds
+      run: yarn install
+#       run: |
+#         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
+#         yarn cache clean --all
+#         sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --inline-builds
 
     - name: Upload logs on fail
       if: ${{ failure() }}
