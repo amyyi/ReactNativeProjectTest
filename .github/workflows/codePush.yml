@@ -133,7 +133,7 @@ jobs:
     #     FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
 
     - name: Build
-      run: yarn install
+      run: sudo gem install cocoapods -v 1.12.1 && yarn install
 #       run: |
 #         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
 #         yarn cache clean --all
