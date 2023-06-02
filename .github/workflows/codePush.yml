@@ -1,4 +1,4 @@
-name: Release code push deploy workflow
+name: release code push
 
 on:
   workflow_dispatch:
@@ -42,10 +42,10 @@ on:
       enableUpdate:
         description: 'Enable this update?'
         type: boolean
-
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # doc: https://github.com/actions/runner-images/blob/main/images/macos/macos-12-Readme.md
+    runs-on: macos-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -55,29 +55,14 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    - name: Set env
-      run: |
-        corepack enable
-        corepack prepare yarn@3.5.0 --activate
-        yarn config set nodeLinker node-modules
-      # yarn plugin remove @yarnpkg/plugin-version
-      # yarn dlx @yarnpkg/doctor
-      # brew install rbenv ruby-build
-      # rbenv install 2.7.6
-      # gem install ffi
-      # yarn policies set-version 3.5.1
-
-    - name: Print env
-      run: echo && yarn -v && which yarn && node -v && ruby -v
+    # - name: Set env
+    #   run: |
+    #     corepack enable
+    #     corepack prepare yarn@3.5.0 --activate
+    #     yarn config set nodeLinker node-modules
 
     - name: Set the keychain credential helper
       run: git config --global credential.helper store
-
-#     - name: Disable the keychain credential helper
-#       run: git config --global credential.helper ""
-
-#     - name: Enable the local store credential helper
-#       run: git config --global --add credential.helper store
 
     - name: Add credential
       run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
@@ -102,6 +87,7 @@ jobs:
           echo "appPrefix=NeximApp" >> $GITHUB_OUTPUT
           echo "appPath=apps/nexim-app" >> $GITHUB_OUTPUT
         fi
+
     - name: Set platform
       id: app-platform-var
       run: |
@@ -116,31 +102,32 @@ jobs:
           echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
         fi
 
-    - name: Print git config global
-      run: git config --global -l
+    - name: Print env
+      run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
 
-    - name: GitHub Action for SwiftLint
-      run: |
-        wget https://swift.org/builds/swift-2.2-release/ubuntu1404/swift-2.2-RELEASE/swift-2.2-RELEASE-ubuntu14.04.tar.gz
-        tar xf swift-2.2-RELEASE-ubuntu14.04.tar.gz
-        export PATH=$HOME/swift-2.2-RELEASE-ubuntu14.04/usr/bin:$PATH
-
-    # - name: Install Xcode
-    #   run: |
-    #     sudo gem install xcode-install
-    #     xcversion install 14.2
-    #   env:
-    #     FASTLANE_PASSWORD: ${{secrets.FASTLANE_PASSWORD}}
+    - name: Install watchman
+      run: brew -v && brew install watchman && watchman -v
 
     - name: Build
       run: |
         rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
         yarn cache clean --all
-        sudo gem install cocoapods -v 1.12.1 && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && rm -rf ./node_modules && yarn install --inline-builds
+        ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn install --network-concurrency 1
+      # ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn config set networkConcurrency --json \"1\" && yarn install --network-timeout 100000
+
+    # - name: Add symlink
+    #   run: ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app
+
+    # - name: Build
+    #   run:  |
+    #     rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
+    #     yarn cache clean --all
+    #     rm -rf ./node_modules && yarn install
 
     - name: Upload logs on fail
       if: ${{ failure() }}
-      run: cat /tmp/**/*build.log
+      run: cat /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/**/*pack.log
+      # run: cat /tmp/**/*build.log
 
     - name: Set App Center script
       id: app-center-var
@@ -173,9 +160,9 @@ jobs:
       run: npm install -g appcenter-cli
 
     - name: Deploy to Codepush
-      run: ${{steps.app-center-var.outputs.deployScript}}
+      run: watchman watch-del-all && watchman shutdown-server && ${{steps.app-center-var.outputs.deployScript}}
       env:
-        APPCENTER_ACCESS_TOKEN: '123'
+        APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
       # https://github.com/avocaddo/AppCenter-Github-Action
       # uses: avocaddo/AppCenter-Github-Action@v1.0.2
       # with:
