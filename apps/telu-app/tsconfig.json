@@ -12,7 +12,6 @@
       "@heimdallr/i18n*": ["libs/i18n/src/index.ts"],
       "@heimdallr/interfaces*": ["libs/interfaces/src*"],
       "@heimdallr/navigator": ["libs/navigator/src/index.ts"],
-      "@heimdallr/services*": ["libs/services/src*"],
       "@heimdallr/stores*": ["libs/stores/src*"],
       "@heimdallr/utils*": ["libs/utils/src*"],
       "@/app-config": ["./apps/telu-app/app.config.js"],
