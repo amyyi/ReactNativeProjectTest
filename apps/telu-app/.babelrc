@@ -2,10 +2,11 @@
   "presets": ["module:metro-react-native-babel-preset"],
   "plugins": [
     [
+      "macros",
       "module-resolver",
       {
         "alias": {
-          "@heimdallr/services/CallCenter": "./../libs/services/src/CallCenter/index.ts"
+          "@heimdallr/services/CallCenter": "./../../libs/services/src/CallCenter/index.ts"
         }
       }
     ]

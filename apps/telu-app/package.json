@@ -67,5 +67,8 @@
   },
   "devDependencies": {
     "babel-plugin-module-resolver": "*"
+  },
+  "resolutions": {
+    "babel-plugin-module-resolver": "*"
   }
 }

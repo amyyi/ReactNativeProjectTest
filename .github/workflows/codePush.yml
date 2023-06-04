@@ -178,7 +178,7 @@ jobs:
       run: npm install -g appcenter-cli
 
     - name: Deploy to Codepush
-      run: rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*. && ${{steps.app-center-var.outputs.deployScript}}
+      run: yarn test:build && ${{steps.app-center-var.outputs.deployScript}}
       env:
         APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
       # https://github.com/avocaddo/AppCenter-Github-Action
