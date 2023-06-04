@@ -19,7 +19,8 @@
     "upgrade:pjsip": "yarn up react-native-pjsip -R",
     "upgrade:esim": "yarn up @heimdallr-native-esim -R",
     "upgrade:vpn": "yarn up @heimdallr-native-vpn -R",
-    "git:config-commit-template": "cp .gitmessage.txt ~/.gitmessage.txt && git config --global commit.template ~/.gitmessage.txt && git config --global --add commit.cleanup strip"
+    "git:config-commit-template": "cp .gitmessage.txt ~/.gitmessage.txt && git config --global commit.template ~/.gitmessage.txt && git config --global --add commit.cleanup strip",
+    "test:build": "nx start telu-app --reset-cache"
   },
   "reactNativePermissionsIOS": [
     "Notifications",
