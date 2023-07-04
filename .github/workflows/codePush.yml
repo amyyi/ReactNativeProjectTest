@@ -126,6 +126,8 @@ jobs:
         rm -rf ./node_modules
         yarn cache clean --all
         rm -rf $TMPDIR/react-*
+        rm -rf /tmp/metro-bundler-cache-*
+        rm -rf /tmp/haste-map-react-native-packager-*
 
     - name: Build
       if: ${{steps.yarn-cache.outputs.cache-hit != 'true'}}
