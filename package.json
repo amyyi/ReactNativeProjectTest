@@ -97,6 +97,6 @@
   },
    "paths": {
       "@heimdallr/services*": ["libs/services/src*"],
-      "@/app-config": ["./apps/telu-app/app.config.js"],
+      "@/app-config": ["./apps/telu-app/app.config.js"]
     }
 }
