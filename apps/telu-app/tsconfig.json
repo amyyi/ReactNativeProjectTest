@@ -1,10 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "./../../",
     "composite": true,
     "paths": {
-      "@heimdallr/services*": ["libs/services/src*"],
+      "@heimdallr/services*": ["../../libs/services/src*"],
       "@/app-config": ["./apps/telu-app/app.config.js"],
     }
   },
