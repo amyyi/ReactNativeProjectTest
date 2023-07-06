@@ -1,4 +1,4 @@
-import TestSrcPath from './srcPath'
+import TestSrcPath from './testPath'
 import CallCenter from '@heimdallr/services/CallCenter'
 
 import App from './App'
