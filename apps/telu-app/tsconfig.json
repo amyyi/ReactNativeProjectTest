@@ -4,8 +4,7 @@
     "composite": true,
     "paths": {
       "@heimdallr/services*": ["./libs/services/src/**/*"],
-      "@/app-config": ["./apps/telu-app/app.config.js"],
-      "@/srcPath": ["./src/testPath.ts"]
+      "@/app-config": ["./apps/telu-app/app.config.js"]
     }
   },
   "include": ["**/*", "**/*.json", "../../libs/**/*"],
