@@ -22,8 +22,7 @@ module.exports = (async () => {
         sourceExts: [...sourceExts, 'svg'],
         blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
          alias: {
-            "@heimdallr/services*": ["libs/services/src/"],
-            "@/srcPath": ["src/testPath.ts"]
+            "@heimdallr/services*": ["../../libs/services/src/"]
         },
       },
     },
