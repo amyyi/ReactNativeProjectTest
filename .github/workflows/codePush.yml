@@ -104,9 +104,6 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
-    
-    - name: Report a valid watchman
-      run: npx react-native doctor
 
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
