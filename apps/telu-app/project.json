@@ -37,7 +37,8 @@
       "options": {
         "entryFile": "src/index.ts",
         "platform": "ios",
-        "bundleOutput": "dist/apps/telu-app/ios/main.jsbundle"
+        "bundleOutput": "dist/apps/telu-app/ios/main.jsbundle",
+        "resetCache": true,
       }
     },
     "run-android": {
