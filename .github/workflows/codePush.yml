@@ -108,12 +108,12 @@ jobs:
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
       
-    - name: Test nx bundle
-      uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.0
-      with:
-        number-of-agents: 3
-        parallel-commands: |
-          npx nx-cloud record -- npx nx format:check
+    name: Test nx bundle
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.0
+    with:
+      number-of-agents: 3
+      parallel-commands: |
+        npx nx-cloud record -- npx nx format:check
 
 #     - name: Get yarn cache directory path
 #       id: yarn-cache-dir-path
