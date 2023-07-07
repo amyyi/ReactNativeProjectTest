@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
     "paths": {
       "@heimdallr/services/*": ["./libs/services/src/*"]
     }
