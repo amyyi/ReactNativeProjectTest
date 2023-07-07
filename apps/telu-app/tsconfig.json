@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@heimdallr/services/*": ["./libs/services/src/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["**/*", "**/*.json", "../../libs/**/*"],
   "exclude": ["node_modules", "metro.config.js", "../../libs/interfaces/src/styled-components.d.ts"]
