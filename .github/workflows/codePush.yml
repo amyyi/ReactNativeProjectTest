@@ -104,11 +104,6 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
-    
-    - name: Install and prind the ts-node
-      run: |
-        npx install -g typescript
-        npx tsc --version
 
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
