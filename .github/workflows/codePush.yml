@@ -104,6 +104,10 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
+    
+    - name: Print tsconfig setting
+      run: |
+        npx tsc --version && cd apps/telu-app && npx tsc --showConfig
 
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
@@ -127,10 +131,6 @@ jobs:
         yarn cache clean --all
         rm -rf $TMPDIR/react-*
         rm -rf /tmp/haste-map-react-native-packager-*
-        
-    - name: Print tsconfig setting
-      run: |
-        cd apps/telu-app && npx tsc --showConfig
 
     - name: Build
 #       if: ${{steps.yarn-cache.outputs.cache-hit != 'true'}}
