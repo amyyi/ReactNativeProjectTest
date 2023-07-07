@@ -37,6 +37,7 @@
     ],
     "baseUrl": "./",
     "paths": {
+      "@heimdallr/src/*": ["./src/*"],
       "@heimdallr/services/*": ["../../libs/services/src/*"]
     },
     "incremental": true
