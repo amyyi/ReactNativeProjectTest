@@ -2,15 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "baseUrl": "./",
     "paths": {
-      "@heimdallr/services/*": ["../../libs/services/src/*"],
-      "@/app-config": ["./apps/telu-app/app.config.js"]
+      "@heimdallr/services/*": ["./libs/services/src/*"]
     }
   },
   "include": ["**/*", "**/*.json", "../../libs/**/*"],
