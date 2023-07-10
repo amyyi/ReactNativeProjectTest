@@ -97,6 +97,6 @@
     "preset": "react-native"
   },
   "exports": {
-    "@heimdallr/services/*": "./libs/services/src/*"
+    "heimdallr/services/*": "./libs/services/src/*"
   }
 }
