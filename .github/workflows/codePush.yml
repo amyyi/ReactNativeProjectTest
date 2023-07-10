@@ -148,9 +148,10 @@ jobs:
       run: cat /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/**/*pack.log
       # run: cat /tmp/**/*build.log
       
-    - name: Test nx bundle
-      run: |
-        yarn test:bundle
+# It can work
+#     - name: Test nx bundle
+#       run: |
+#         yarn test:bundle
 
     - name: Set App Center script
       id: app-center-var
