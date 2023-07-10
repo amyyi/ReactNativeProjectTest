@@ -104,13 +104,9 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
-
-    - name: Test nx bundle
-      run: |
-        npm install -g nx && yarn test:bundle
         
-    - name: Install watchman
-      run: brew -v && brew install watchman && watchman -v
+#     - name: Install watchman
+#       run: brew -v && brew install watchman && watchman -v
 
 #     - name: Get yarn cache directory path
 #       id: yarn-cache-dir-path
@@ -151,6 +147,10 @@ jobs:
       if: ${{ failure() }}
       run: cat /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/**/*pack.log
       # run: cat /tmp/**/*build.log
+      
+    - name: Test nx bundle
+      run: |
+        yarn test:bundle
 
     - name: Set App Center script
       id: app-center-var
