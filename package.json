@@ -95,5 +95,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "exports": {
+    "@heimdallr/services/*": "./libs/services/src/*"
   }
 }
