@@ -105,8 +105,8 @@ jobs:
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
         
-#     - name: Install watchman
-#       run: brew -v && brew install watchman && watchman -v
+    - name: Install watchman
+      run: brew -v && brew install watchman && watchman -v
 
 #     - name: Get yarn cache directory path
 #       id: yarn-cache-dir-path
