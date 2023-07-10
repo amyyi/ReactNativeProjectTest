@@ -7,6 +7,7 @@ module.exports = (async () => {
   const {
     resolver: { sourceExts, assetExts },
   } = await getDefaultConfig()
+  console.log('metro __dirname', __dirname)
   return withNxMetro(
     {
       transformer: {
