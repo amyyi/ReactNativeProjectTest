@@ -104,7 +104,7 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
-        
+
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
 
@@ -147,7 +147,7 @@ jobs:
       if: ${{ failure() }}
       run: cat /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/**/*pack.log
       # run: cat /tmp/**/*build.log
-      
+
 # It can work
 #     - name: Test nx bundle
 #       run: |

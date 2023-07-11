@@ -20,11 +20,8 @@ module.exports = (async () => {
       },
       resolver: {
         assetExts: assetExts.filter((ext) => ext !== 'svg'),
-        sourceExts: [...sourceExts, 'svg'],
+        sourceExts: [...sourceExts, 'svg', 'cjs'],
         blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
-        alias: {
-          "@heimdallr/services*": ["../../libs/services/src/*"]
-        },
       },
     },
     {
