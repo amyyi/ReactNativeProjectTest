@@ -20,7 +20,7 @@ module.exports = (async () => {
       },
       resolver: {
         assetExts: assetExts.filter((ext) => ext !== 'svg'),
-        sourceExts: [...sourceExts, 'svg', 'cjs'],
+        sourceExts: [...sourceExts, 'svg', 'ts'],
         blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
       },
     },
@@ -29,7 +29,7 @@ module.exports = (async () => {
       // Useful if you have issues resolving modules
       debug: false,
       // all the file extensions used for imports other than 'ts', 'tsx', 'js', 'jsx', 'json'
-      extensions: [],
+      extensions: ['ts'],
       // the project root to start the metro server
       projectRoot: __dirname,
       // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
