@@ -183,6 +183,9 @@ jobs:
     - name: Install AppCenter CLI
       run: npm install -g appcenter-cli
 
+    - name: Set watchman
+      run: watchman watch-project ${{github.workspace}}/ReactNativeProjectTest/ReactNativeProjectTest
+
     - name: Deploy to Codepush
       run: ${{steps.app-center-var.outputs.deployScript}}
       env:
