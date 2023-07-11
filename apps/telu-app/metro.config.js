@@ -16,6 +16,7 @@ module.exports = (async () => {
           transform: {
             experimentalImportSupport: false,
             inlineRequires: true,
+            resetCache: true,
           },
         }),
       },
@@ -38,7 +39,6 @@ module.exports = (async () => {
       projectRoot: __dirname,
       // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
       watchFolders: [],
-      resetCache: true,
     },
   )
 })()

@@ -5,8 +5,7 @@
       "module-resolver",
       {
         "alias": {
-          "@heimdallr/services*": "libs/services/src/*",
-          "@heimdallr/src*": "apps/telu-app/src/*"
+          "@heimdallr/services/CallCenter": "libs/services/src/CallCenter/index.ts"
         }
       }
     ]
