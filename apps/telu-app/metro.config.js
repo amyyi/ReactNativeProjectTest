@@ -22,8 +22,8 @@ module.exports = (async () => {
         assetExts: assetExts.filter((ext) => ext !== 'svg'),
         sourceExts: [...sourceExts, 'svg'],
         blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
-         alias: {
-            "@heimdallr/services*": ["../../libs/services/src/"]
+        alias: {
+          "@heimdallr/services*": ["../../libs/services/src/*"]
         },
       },
     },
