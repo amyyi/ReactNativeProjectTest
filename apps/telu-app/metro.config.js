@@ -2,6 +2,7 @@
 const { withNxMetro } = require('@nrwl/react-native')
 const { getDefaultConfig } = require('metro-config')
 const exclusionList = require('metro-config/src/defaults/exclusionList')
+const { path } = require('path')
 
 module.exports = (async () => {
   const {
@@ -22,6 +23,9 @@ module.exports = (async () => {
         assetExts: assetExts.filter((ext) => ext !== 'svg'),
         sourceExts: [...sourceExts, 'svg', 'ts'],
         blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
+        extraNodeModules: {
+          '@heimdallr/services/*': path.resolve(__dirname, 'libs/services/src/*'),
+        },
       },
     },
     {
@@ -34,6 +38,7 @@ module.exports = (async () => {
       projectRoot: __dirname,
       // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
       watchFolders: [],
+      resetCache: true,
     },
   )
 })()

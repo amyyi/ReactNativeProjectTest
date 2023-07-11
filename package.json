@@ -95,5 +95,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "exports": {
+    "browser": "./dist/index-browser.js",
+    "react-native": "./dist/index-react-native.js",
+    "default": "./dist/index.js"
   }
 }
