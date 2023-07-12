@@ -7,7 +7,7 @@ const { path } = require('path')
 module.exports = (async () => {
   const {
     resolver: { sourceExts, assetExts },
-  } = await getDefaultConfig()
+  } = await getDefaultConfig(__dirname)
   console.log('metro __dirname', __dirname)
   return withNxMetro(
     {

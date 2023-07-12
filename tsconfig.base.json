@@ -81,7 +81,7 @@
       }
     ],
     "paths": {
-      "@heimdallr/services*": ["libs/services/src/*"]
+      "@heimdallr/services/*": ["libs/services/src/*"]
     }
   },
   "include": ["**/*"],

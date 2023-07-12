@@ -38,7 +38,12 @@
         "entryFile": "src/index.ts",
         "platform": "ios",
         "bundleOutput": "dist/apps/telu-app/ios/main.jsbundle",
-        "resetCache": true,
+        "tsConfig": "apps/telu-app/tsconfig.base.json",
+        "transformers": [
+          {
+            "name": "typescript-transform-paths/nx-transformer"
+          }
+        ]
       }
     },
     "run-android": {
