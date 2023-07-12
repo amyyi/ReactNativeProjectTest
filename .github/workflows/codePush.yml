@@ -55,11 +55,11 @@ jobs:
     - name: Bundle dependencies
       run: sudo gem install bundler
 
-    # - name: Set env
-    #   run: |
-    #     corepack enable
-    #     corepack prepare yarn@3.5.0 --activate
-    #     yarn config set nodeLinker node-modules
+    - name: Set env
+      run: |
+        corepack enable
+        corepack prepare yarn@3.5.0 --activate
+        yarn config set nodeLinker node-modules
 
     - name: Set the keychain credential helper
       run: git config --global credential.helper store
@@ -104,9 +104,6 @@ jobs:
 
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
-
-    - name: Set ts
-      run: node -r ts-node/register -r tsconfig-paths/register dist/index.js
 
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
