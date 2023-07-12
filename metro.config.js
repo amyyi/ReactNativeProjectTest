@@ -23,10 +23,7 @@ module.exports = (async () => {
       resolver: {
         assetExts: assetExts.filter((ext) => ext !== 'svg'),
         sourceExts: [...sourceExts, 'svg', 'ts'],
-        blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/]),
-        extraNodeModules: {
-          '@heimdallr/services/*': path.resolve(__dirname, 'libs/services/src/*'),
-        },
+        blockList: exclusionList([/^(?!.*node_modules).*\/dist\/.*/])
       },
     },
     {
@@ -38,7 +35,7 @@ module.exports = (async () => {
       // the project root to start the metro server
       projectRoot: __dirname,
       // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
-      watchFolders: [path.resolve(__dirname + 'libs/services/src/*')],
+      watchFolders: [],
     },
   )
 })()
