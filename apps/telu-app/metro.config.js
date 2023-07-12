@@ -38,7 +38,7 @@ module.exports = (async () => {
       // the project root to start the metro server
       projectRoot: __dirname,
       // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
-      watchFolders: [],
+      watchFolders: [path.resolve(__dirname + 'libs/services/src/*')],
     },
   )
 })()
