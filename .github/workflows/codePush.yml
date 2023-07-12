@@ -105,6 +105,9 @@ jobs:
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
 
+    - name: Set ts
+      run: node -r ts-node/register -r tsconfig-paths/register dist/index.js
+
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
 
