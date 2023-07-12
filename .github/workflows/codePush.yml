@@ -183,8 +183,8 @@ jobs:
     - name: Install AppCenter CLI
       run: npm install -g appcenter-cli
 
-    - name: Set watchman
-      run: watchman watch-project ${{github.workspace}}
+    - name: Set max file limits
+      run: sudo sysctl -w kern.maxfilesperproc=1048576
 
     - name: Deploy to Codepush
       run: ${{steps.app-center-var.outputs.deployScript}}
