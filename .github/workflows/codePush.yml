@@ -130,8 +130,9 @@ jobs:
 
     - name: Build
 #       if: ${{steps.yarn-cache.outputs.cache-hit != 'true'}}
+# yarn 1: yarn install --network-concurrency 1
       run: |
-        ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn install --network-concurrency 1 && rm -rf /tmp/metro-bundler-cache-*  && rm -rf /tmp/haste-map-react-native-packager-* && rm -rf /tmp/metro-*
+        ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn install && rm -rf /tmp/metro-bundler-cache-*  && rm -rf /tmp/haste-map-react-native-packager-* && rm -rf /tmp/metro-*
       # ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn config set networkConcurrency --json \"1\" && yarn install --network-timeout 100000
 
     # - name: Add symlink
