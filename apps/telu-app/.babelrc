@@ -2,12 +2,12 @@
   "presets": ["module:metro-react-native-babel-preset"],
   "plugins": [
     [
-      "ignite-ignore-reactotron", "module-resolver",
+      "module-resolver",
       {
-        "extensions": ["ts"],
         "alias": {
           "@heimdallr/services/CallCenter": "libs/services/src/CallCenter/index.ts"
-        }
+        },
+        "extensions": ["ts"]
       }
     ]
   ]
