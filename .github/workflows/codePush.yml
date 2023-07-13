@@ -105,6 +105,9 @@ jobs:
     - name: Print env
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
 
+    - name: Install AppCenter CLI
+      run: npx install -g appcenter-cli
+
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
 
@@ -181,11 +184,8 @@ jobs:
     #     echo "deployScriptAndroid ${{steps.app-center.outputs.deployScriptAndroid}}"
     #     echo "deployScript ${{steps.app-center.outputs.deployScript}}"
 
-    - name: Install AppCenter CLI
-      run: npm install -g appcenter-cli
-
-    - name: Set max file limits
-      run: sudo sysctl -w kern.maxfilesperproc=1048576
+    # - name: Install AppCenter CLI
+    #   run: npx install appcenter-cli
 
     - name: Deploy to Codepush
       run: ${{steps.app-center-var.outputs.deployScript}}
