@@ -154,20 +154,20 @@ jobs:
 #       run: |
 #         yarn test:bundle
 
-    # - name: Set App Center script
-    #   id: app-center-var
-    #   run: |
-    #     if ${{inputs.platform == 'iOS & android'}}; then
-    #     echo "deployScriptIos=$deployScriptIos $updateSetting" >> $GITHUB_OUTPUT
-    #     echo "deployScriptAndroid=$deployScriptAndroid $updateSetting" >> $GITHUB_OUTPUT
-    #     else
-    #     echo "deployScript=$deployScript $updateSetting" >> $GITHUB_OUTPUT
-    #     fi
-    #   env:
-    #     deployScriptIos: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameIos}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
-    #     deployScriptAndroid: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameAndroid}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
-    #     deployScript: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appName}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
-    #     updateSetting: ${{inputs.forceUpdate == true && ' -m' || ''}} ${{inputs.enableUpdate == false && ' -x' || ''}}
+    - name: Set App Center script
+      id: app-center-var
+      run: |
+        if ${{inputs.platform == 'iOS & android'}}; then
+        echo "deployScriptIos=$deployScriptIos $updateSetting" >> $GITHUB_OUTPUT
+        echo "deployScriptAndroid=$deployScriptAndroid $updateSetting" >> $GITHUB_OUTPUT
+        else
+        echo "deployScript=$deployScript $updateSetting" >> $GITHUB_OUTPUT
+        fi
+      env:
+        deployScriptIos: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameIos}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        deployScriptAndroid: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameAndroid}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        deployScript: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appName}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+        updateSetting: ${{inputs.forceUpdate == true && ' -m' || ''}} ${{inputs.enableUpdate == false && ' -x' || ''}}
 
     # for test
     # - name: Print variable
@@ -181,13 +181,11 @@ jobs:
     #     echo "deployScriptAndroid ${{steps.app-center.outputs.deployScriptAndroid}}"
     #     echo "deployScript ${{steps.app-center.outputs.deployScript}}"
 
-    # - name: Install AppCenter CLI
-    #   run: npm install -g appcenter-cli
-
     - name: Deploy to Codepush
-      run: npx appcenter codepush release-react -a Tel25/TeluApp-iOS -e ${{github.workspace}}/apps/telu-app/src/index.ts -d Development -t 0.0.0 --description "Release-v0.0.0-0.0-" -x  --token ${{ secrets.APPCENTER }}
-      # env:
-      #   APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
+    # --token ${{ secrets.APPCENTER }}
+      run: npx ${{steps.app-center-var.outputs.deployScript}}
+      env:
+        APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
       # https://github.com/avocaddo/AppCenter-Github-Action
       # uses: avocaddo/AppCenter-Github-Action@v1.0.2
       # with:

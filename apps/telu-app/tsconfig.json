@@ -1,12 +1,11 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "paths": {
-      "@heimdallr/src/*": ["./src/*"],
-      "@heimdallr/services/*": ["../../libs/services/src/*"]
+      "@heimdallr/services/*": ["libs/services/src/*"]
     },
   },
-  "include": ["**/*", "**/*.json", "../../libs/**/*"],
+  "include": ["**/*", "**/*.json", "../../libs/**/*", "**/*.tsx", "**/*.ts"],
   "exclude": ["node_modules", "metro.config.js", "../../libs/interfaces/src/styled-components.d.ts"]
 }
