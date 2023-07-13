@@ -183,7 +183,7 @@ jobs:
 
     - name: Deploy to Codepush
     # --token ${{ secrets.APPCENTER }}
-      run: npx ${{steps.app-center-var.outputs.deployScript}}
+      run: npx ${{steps.app-center-var.outputs.deployScript}} --debug
       env:
         APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
       # https://github.com/avocaddo/AppCenter-Github-Action
