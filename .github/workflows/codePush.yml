@@ -106,7 +106,7 @@ jobs:
       run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
 
     - name: Install AppCenter CLI
-      run: npx install -g appcenter-cli
+      run: npx install appcenter-cli
 
     - name: Install watchman
       run: brew -v && brew install watchman && watchman -v
