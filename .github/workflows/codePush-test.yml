@@ -1,0 +1,217 @@
+name: release code push
+
+on:
+  workflow_dispatch:
+    inputs:
+      projectName:
+        description: 'Which app do you want to code push'
+        required: true
+        type: choice
+        options:
+        - telu
+        - nexim
+      platform:
+        description: 'Which platform do you want to release'
+        required: true
+        type: choice
+        options:
+          - iOS
+          - Android
+          - iOS & android
+      environment:
+        description: 'Which environment do you want to deploy'
+        required: true
+        type: choice
+        options:
+          - Development
+          - Production
+      targetVersion:
+        description: "Target store version: (2.0.2)"
+        required: true
+        type: string
+      codePushVersion:
+        description: "Target code push version: v2.0.2-(3)"
+        required: true
+        type: string
+      description:
+        description: "description: (some note)"
+        type: string
+      forceUpdate:
+        description: "Whether to enable mandatory update?"
+        type: boolean
+      enableUpdate:
+        description: 'Enable this update?'
+        type: boolean
+jobs:
+  main:
+    name: Nx Cloud - Main Job
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.0
+    with:
+      number-of-agents: 3
+      parallel-commands: |
+        npx nx-cloud record -- npx nx format:check
+      parallel-commands-on-agents: |
+        npx nx affected -t lint --parallel=3 & npx nx affected -t test --parallel=3 --configuration=ci & npx nx affected -t build --parallel=3
+  agents:
+    name: Nx Cloud - Agents
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.13.0
+    with:
+      number-of-agents: 3
+
+  deploy:
+    # doc: https://github.com/actions/runner-images/blob/main/images/macos/macos-12-Readme.md
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.PAT_AMY }}
+
+    - name: Bundle dependencies
+      run: sudo gem install bundler
+
+    - name: Set env
+      run: |
+        corepack enable
+        corepack prepare yarn@3.5.0 --activate
+        yarn config set nodeLinker node-modules
+
+    - name: Set the keychain credential helper
+      run: git config --global credential.helper store
+
+    - name: Add credential
+      run: echo "https://x-access-token:${{ secrets.PAT_AMY }}@github.com" >> ~/.git-credentials
+
+    - name: Tell git to use https instead of ssh whenever it encounters it
+      run: 'git config --global url."https://github.com/".insteadof git@github.com:'
+
+    - name: Set github url and credentials
+      run: |
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf ssh://git@github
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf https://github
+        /usr/bin/git config --global --add url."https://${{ secrets.PAT_AMY }}:x-oauth-basic@github".insteadOf git@github
+
+    - name: Set path
+      id: app-path-var
+      run: |
+        if ${{inputs.projectName == 'telu'}}; then
+          echo "appPrefix=TeluApp" >> $GITHUB_OUTPUT
+          echo "appPath=apps/telu-app" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.projectName == 'nexim'}}; then
+          echo "appPrefix=NeximApp" >> $GITHUB_OUTPUT
+          echo "appPath=apps/nexim-app" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Set platform
+      id: app-platform-var
+      run: |
+        if ${{inputs.platform == 'iOS'}}; then
+          echo "appName=${{steps.app-path-var.outputs.appPrefix}}-iOS" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.platform == 'Android'}}; then
+          echo "appName=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
+        fi
+        if ${{inputs.platform == 'iOS & android'}}; then
+          echo "appNameIos=${{steps.app-path-var.outputs.appPrefix}}-iOS" >> $GITHUB_OUTPUT
+          echo "appNameAndroid=${{steps.app-path-var.outputs.appPrefix}}-Android" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Print env
+      run: echo && yarn -v && which yarn && node -v && ruby -v && pod --version
+
+    - name: Install watchman
+      run: brew -v && brew install watchman && watchman -v
+
+#     - name: Get yarn cache directory path
+#       id: yarn-cache-dir-path
+#       run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+#     - uses: actions/cache@v2
+#       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+#       with:
+#         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#         restore-keys: |
+#           ${{ runner.os }}-yarn-
+
+    - name: Clean all the things
+      run: |
+        watchman watch-del-all
+        rm -rf ./node_modules
+        yarn cache clean --all
+        rm -rf $TMPDIR/react-*
+        rm -rf /tmp/haste-map-react-native-packager-*
+
+    - name: Build
+#       if: ${{steps.yarn-cache.outputs.cache-hit != 'true'}}
+# yarn 1: yarn install --network-concurrency 1
+      run: |
+        ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn install && rm -rf /tmp/metro-bundler-cache-*  && rm -rf /tmp/haste-map-react-native-packager-* && rm -rf /tmp/metro-*
+      # ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app && rm -rf ./node_modules && yarn config set networkConcurrency --json \"1\" && yarn install --network-timeout 100000
+
+    # - name: Add symlink
+    #   run: ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/telu-app && ln -s ${{github.workspace}}/node_modules ${{github.workspace}}/apps/nexim-app
+
+    # - name: Build
+    #   run:  |
+    #     rm -rf ~/Library/Caches/Yarn/v6/.tmp/*
+    #     yarn cache clean --all
+    #     rm -rf ./node_modules && yarn install
+
+    - name: Upload logs on fail
+      if: ${{ failure() }}
+      run: cat /private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/**/*pack.log
+      # run: cat /tmp/**/*build.log
+
+# It can work
+#     - name: Test nx bundle
+#       run: |
+#         yarn test:bundle
+
+    # - name: Set App Center script
+    #   id: app-center-var
+    #   run: |
+    #     if ${{inputs.platform == 'iOS & android'}}; then
+    #     echo "deployScriptIos=$deployScriptIos $updateSetting" >> $GITHUB_OUTPUT
+    #     echo "deployScriptAndroid=$deployScriptAndroid $updateSetting" >> $GITHUB_OUTPUT
+    #     else
+    #     echo "deployScript=$deployScript $updateSetting" >> $GITHUB_OUTPUT
+    #     fi
+    #   env:
+    #     deployScriptIos: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameIos}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+    #     deployScriptAndroid: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appNameAndroid}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+    #     deployScript: appcenter codepush release-react -a Tel25/${{steps.app-platform-var.outputs.appName}} -e ${{github.workspace}}/${{steps.app-path-var.outputs.appPath}}/src/index.ts -d ${{inputs.environment}} -t ${{inputs.targetVersion}} --description "Release-v${{inputs.targetVersion}}-${{inputs.codePushVersion}}-${{inputs.description}}"
+    #     updateSetting: ${{inputs.forceUpdate == true && ' -m' || ''}} ${{inputs.enableUpdate == false && ' -x' || ''}}
+
+    # for test
+    # - name: Print variable
+    #   run: |
+    #     echo "appPrefix ${{steps.app-path-var.outputs.appPrefix}}"
+    #     echo "appPath ${{steps.app-path-var.outputs.appPath}}"
+    #     echo "appName ${{steps.app-platform-var.outputs.appName}}"
+    #     echo "appNameIos ${{steps.app-platform-var.outputs.appNameIos}}"
+    #     echo "appNameAndroid ${{steps.app-platform-var.outputs.appNameAndroid}}"
+    #     echo "deployScriptIos ${{steps.app-center.outputs.deployScriptIos}}"
+    #     echo "deployScriptAndroid ${{steps.app-center.outputs.deployScriptAndroid}}"
+    #     echo "deployScript ${{steps.app-center.outputs.deployScript}}"
+
+    # - name: Install AppCenter CLI
+    #   run: npm install -g appcenter-cli
+
+    - name: Deploy to Codepush
+      run: npx appcenter codepush release-react -a Tel25/TeluApp-iOS -e ${{github.workspace}}/apps/telu-app/src/index.ts -d Development -t 0.0.0 --description "Release-v0.0.0-0.0-" -x  --token ${{ secrets.APPCENTER }}
+      # env:
+      #   APPCENTER_ACCESS_TOKEN: ${{secrets.APPCENTER}}
+      # https://github.com/avocaddo/AppCenter-Github-Action
+      # uses: avocaddo/AppCenter-Github-Action@v1.0.2
+      # with:
+      #   command: ${{steps.app-center-var.outputs.deployScript}}
+      #   token: '034772f12caa088ac926a71ffc8f05b59303c5f0'
+      # uses: NishanthShankar/codepush-action@master
+      # with:
+      #   args:
+      #     # ${{steps.app-center-var.outputs.deployScriptIos}}
+      #     # ${{steps.app-center-var.outputs.deployScriptAndroid}}
+      #     ${{steps.app-center-var.outputs.deployScript}}
+      # uses: wzieba/AppCenter-Github-Action@v1
